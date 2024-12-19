@@ -212,10 +212,78 @@ class S21Matrix {
   }
 }
 
+    double Determinant() {
+        if (!matrix_) {
+            throw std::runtime_error("Matrix is not initialized.");
+        }
+        if (rows_ != cols_) {
+            throw std::runtime_error("Matrix is not square.");
+        }
+        if (rows_ == 1) {
+            return matrix_[0][0];
+        }
 
-  // S21Matrix CalcComplements(){
+        double result = 1.0;
+        S21Matrix triangle(rows_, cols_);
 
-  // }
+        // Копируем матрицу в треугольную матрицу
+        for (int i = 0; i < triangle.rows_; i++) {
+            for (int j = 0; j < triangle.cols_; j++) {
+                triangle.matrix_[i][j] = matrix_[i][j];
+            }
+        }
+
+        for (int i = 0; i < triangle.rows_; i++) {
+            int hook = i;
+            for (int j = i + 1; j < triangle.rows_; j++) {
+                if (triangle.matrix_[j][i] > triangle.matrix_[hook][i]) {
+                    hook = j;
+                }
+            }
+            if (hook != i) {
+                result *= -1;
+                for (int j = i; j < triangle.rows_; j++) {
+                    std::swap(triangle.matrix_[i][j], triangle.matrix_[hook][j]);
+                }
+            }
+            if (triangle.matrix_[i][i] == 0) {
+                return 0; // Определитель равен 0
+            } else {
+                result *= triangle.matrix_[i][i];
+            }
+            for (int j = i + 1; j < triangle.rows_; j++) {
+                double ratio = triangle.matrix_[j][i] / triangle.matrix_[i][i];
+                for (int k = i; k < triangle.rows_; k++) {
+                    triangle.matrix_[j][k] -= ratio * triangle.matrix_[i][k];
+                }
+            }
+        }
+
+        return result;
+    }
+
+     S21Matrix CalcComplements() {
+        if (!matrix_) {
+            throw std::runtime_error("Matrix is not initialized.");
+        }
+        if (rows_ != cols_) {
+            throw std::runtime_error("Matrix is not square.");
+        }
+
+        S21Matrix result(rows_, cols_);
+        S21Matrix minor_matrix(rows_ - 1, cols_ - 1);
+        double determinant = 0;
+
+        for (int i = 0; i < rows_; i++) {
+            for (int j = 0; j < cols_; j++) {
+                create_minor(minor_matrix, i, j);
+                determinant = minor_matrix.Determinant();
+                result.matrix_[i][j] = pow(-1, i + j) * determinant;
+            }
+        }
+
+        return result;
+    }
 
   S21Matrix operator+(const S21Matrix& rv) {
     if (rows_ != rv.rows_ || cols_ != rv.cols_)
