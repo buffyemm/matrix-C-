@@ -7,13 +7,11 @@ CXXFLAGS=-std=c++17 -g
 all: $(OUTPUT)
 
 $(OUTPUT): $(LIBRARY) $(TESTS)
-	g++ $(CXXFLAGS) -o $(OUTPUT) $(LIBRARY) $(CUM) $(TESTS) -lgtest -lgmock -pthread
-
-run: $(OUTPUT)
+	g++ $(CXXFLAGS) -o $(OUTPUT) $(LIBRARY) $(CUM)
 	./$(OUTPUT)
 
 build: $(OUTPUT)
-	g++ $(CXXFLAGS) -o $(OUTPUT) $(LIBRARY) $(TESTS) -lgtest -lgmock -pthread
+	g++ $(CXXFLAGS) -o $(OUTPUT) $(LIBRARY) $(TESTS) -lgtest
 
 clean:
 	rm -f $(OUTPUT)

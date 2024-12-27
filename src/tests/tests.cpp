@@ -1,6 +1,4 @@
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include "../matrix/matrix.h"
 
 TEST(S21Matrix, operatorEq) {
@@ -11,13 +9,13 @@ TEST(S21Matrix, operatorEq) {
 
  TEST(S21Matrix, operatorEq2) {
    S21Matrix matrix1(3, 2);
-   S21Matrix matrix2;
+   S21Matrix matrix2(3,3);
   EXPECT_FALSE(matrix1.EqMatrix(matrix2));
  }
 
  TEST(S21Matrix, operatorEq3) {
    S21Matrix matrix1(3, 3);
-   S21Matrix matrix2;
+   S21Matrix matrix2(3,3);
    matrix1(0,0) = 2;
    matrix1(0,1) = 5;
    matrix2(0,0) = 2;
@@ -31,7 +29,7 @@ TEST(S21Matrix, operatorEq) {
  }
 
  TEST(S21Matrix, CalcComplements) {
-   S21Matrix matrix1;
+   S21Matrix matrix1(3,3);
    matrix1(0, 0) = 1;
    matrix1(0, 1) = 2;
    matrix1(0, 2) = 3;
@@ -91,6 +89,6 @@ TEST(S21Matrix, MulNumber_ValidInput) {
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
-    ::testing::InitGoogleMock(&argc, argv);
+//    ::testing::InitGoogleMock(&argc, argv);
     return RUN_ALL_TESTS();
 }

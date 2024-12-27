@@ -37,6 +37,8 @@ class S21Matrix {
 
   void MulMatrix(const S21Matrix &other);
 
+
+
   void Allocate();
 
   void DeAllocate();
@@ -51,6 +53,8 @@ class S21Matrix {
 
   S21Matrix CalcComplements();
 
+  S21Matrix InverseMatrix();
+
   S21Matrix operator+(const S21Matrix &rv);
 
   S21Matrix operator-(const S21Matrix &rv);
@@ -61,10 +65,22 @@ class S21Matrix {
 
   S21Matrix operator*(const double num);
 
+  S21Matrix operator+=(const S21Matrix& other);
+
+  S21Matrix operator-=(const S21Matrix& other);
+
+  S21Matrix operator*=(const S21Matrix& other);
+
+  S21Matrix operator*=(const double num);
+
   bool operator==(const S21Matrix &rv);
 
- private:
+  S21Matrix operator=(const S21Matrix& other);
+
+  S21Matrix operator=(S21Matrix&& other) noexcept;
+
   void create_matrix();
+
   void printfMatrix();
 };
 
