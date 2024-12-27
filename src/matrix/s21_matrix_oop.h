@@ -1,5 +1,6 @@
-#ifndef SRC_MATRIX_H
-#define SRC_MATRIX_H
+#ifndef S21_MATRIX_OOP_H
+#define S21_MATRIX_OOP_H
+
 #include <cmath>
 #include <iostream>
 
